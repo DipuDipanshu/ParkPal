@@ -34,7 +34,7 @@
 					console.log('Error in the query');
 				} else {
 					var i=0
-					 console.log('SUCESS!\n');
+					 console.log('SUCCESS!\n');
 					 console.log(rows);
 					 resp.send("Hello, " + rows);
 					 
@@ -57,7 +57,7 @@
 
   				}, function(err, resp){
   					if(err){
-  						console.log("Error in inserting p_data " +e );
+  						console.log("Error in inserting into p_data " +err );
   					}else{
   						console.log("Insertion SUCCESSFUL");
   					}
@@ -68,7 +68,7 @@
   				//data = data.toUpperCase();
   				//console.log("sending: " + data);
   				//resp.send(data);
-  			res.send(SUCCESSFUL);
+  			//res.send(SUCCESSFUL);
 
   		});
   	

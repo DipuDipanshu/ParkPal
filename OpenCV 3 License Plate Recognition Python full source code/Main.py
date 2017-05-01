@@ -7,6 +7,7 @@ import webbrowser
 import DetectChars
 import DetectPlates
 import PossiblePlate
+import random
 
 new=2;
 
@@ -29,9 +30,9 @@ def main():
         return                                                          # and exit program
     # end if
     setOfNumbers = range(1,25)
-    licPlate=oldlicPlate=""
+    oldlicPlate="abcd"
+    uid=0;
     while 1 :
-	  #time.sleep(10);
      	  imgOriginalScene  = cv2.imread("C:/out/5.bmp")               # open image
 
           if imgOriginalScene is None:                            # if image was not read successfully
@@ -50,7 +51,6 @@ def main():
        	  	print "\nno license plates were detected\n"             # inform user no plates were found
    	  else:                                                       # else
                 # if we get in here list of possible plates has at leat one plate
-
                 # sort the list of possible plates in DESCENDING order (most number of chars to least number of chars)
         	listOfPossiblePlates.sort(key = lambda possiblePlate: len(possiblePlate.strChars), reverse = True)
 
@@ -58,30 +58,27 @@ def main():
           	licPlate = listOfPossiblePlates[0]
 
 	        cv2.imshow("imgPlate", licPlate.imgPlate)           # show crop of plate and threshold of plate
-	        cv2.imshow("imgThresh", licPlate.imgThresh)
+	        #cv2.imshow("imgThresh", licPlate.imgThresh)
        	        if len(licPlate.strChars) == 0:                     # if no chars were found in the plate
         	    print "\nno characters were detected\n\n"       # show message
             	    continue                                          # and exit program
        	        # end if
 
-       	        drawRedRectangleAroundPlate(imgOriginalScene, licPlate)             # draw red rectangle around plate
-
-	        print "\nlicense plate read from image = " + licPlate.strChars + "\n"       # write license plate text to std out
-                print "----------------------------------------"
-
-		if licPlate != oldlicPlate :
-			b = setOfNumbers[random.randint(0,len(setOfNumbers)-i)]
-			print(b)
+		if licPlate.strChars != oldlicPlate :
+       	        	drawRedRectangleAroundPlate(imgOriginalScene, licPlate)             # draw red rectangle around plate
+	 	        print "\nlicense plate read from image = " + licPlate.strChars + "\n"       # write license plate text to std out
+			b = setOfNumbers[random.randint(0,len(setOfNumbers))]
+			print "ID = "+str(b)
    			setOfNumbers.remove(b)
-			url="http://localhost:3000/data?data1=4&data2= "+licPlate.strChars+"&data3="+b+"&data4=4";
-                	webbrowser.open(url,new=new);
+			++uid;
+			url="http://localhost:3000/data?data1="+str(uid)+"&data2="+licPlate.strChars+"&data3=2&data4="+str(b)
+                	webbrowser.open(url,new=new)
+			oldlicPlate=licPlate.strChars
+			print "\n----------------------------------------"
+			writeLicensePlateCharsOnImage(imgOriginalScene, licPlate)           # write license plate text on the image
+			cv2.imshow("imgOriginalScene", imgOriginalScene)                # re-show scene image
 		#end if
-
-                writeLicensePlateCharsOnImage(imgOriginalScene, licPlate)           # write license plate text on the image
-
-                cv2.imshow("imgOriginalScene", imgOriginalScene)                # re-show scene image
-
-                cv2.imwrite("imgOriginalScene.png", imgOriginalScene)           # write image out to file
+                #cv2.imwrite("imgOriginalScene.png", imgOriginalScene)           # write image out to file
 
           # end if else
 	  cv2.waitKey(10000)
