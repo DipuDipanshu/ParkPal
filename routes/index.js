@@ -30,7 +30,7 @@
 		/* GET home page. */
 		router.get('/', function(req, resp) {
 			connection.query("SELECT * FROM p_data", function(error, rows, fields){
-				if(!!error){
+				if(error){
 					console.log('Error in the query');
 				} else {
 					var i=0
@@ -44,7 +44,7 @@
 			});
   		});
 
-  		router.get('/data', function(req, resp){
+  		router.get('/data', function(req, res){
   			var data1 = req.query.data1;
   			var data2 = req.query.data2;
   			var data3 = req.query.data3;
@@ -62,7 +62,7 @@
   						console.log("Insertion SUCCESSFUL");
   					}
   				});
-  				}
+  			}
   				//console.log("from connected user: " 
   				//	+ data);
   				//data = data.toUpperCase();
