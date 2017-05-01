@@ -30,7 +30,7 @@
 		/* GET home page. */
 		router.get('/', function(req, resp) {
 			connection.query("SELECT * FROM p_data", function(error, rows, fields){
-				if(error){
+				if(!!error){
 					console.log('Error in the query');
 				} else {
 					var i=0
@@ -55,20 +55,21 @@
   					sql : 'insert into p_data(verifykey, number, floor, slot) values(?, ?, ?, ?)',
   					values : [data1, data2, data3, data4]
 
-  				}, function(err, resp){
+  				}, function(err, res){
   					if(err){
   						console.log("Error in inserting into p_data " +err );
   					}else{
   						console.log("Insertion SUCCESSFUL");
+  						res.send("SUCCESSFUL");
   					}
   				});
-  			}
+  				}
   				//console.log("from connected user: " 
   				//	+ data);
   				//data = data.toUpperCase();
   				//console.log("sending: " + data);
   				//resp.send(data);
-  			//res.send(SUCCESSFUL);
+  			res.send(SUCCESSFUL);
 
   		});
   	
