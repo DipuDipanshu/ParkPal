@@ -31,9 +31,9 @@ def main():
     # end if
     setOfNumbers = range(1,25)
     oldlicPlate="abcd"
-    uid=0;
+    uid=0
     while 1 :
-     	  imgOriginalScene  = cv2.imread("C:/out/5.bmp")               # open image
+     	  imgOriginalScene  = cv2.imread("1.png")#C:/out/5.bmp")               # open image
 
           if imgOriginalScene is None:                            # if image was not read successfully
         	print "\nerror: image not read from file \n\n"      # print error message to std out
@@ -57,7 +57,7 @@ def main():
                 # suppose the plate with the most recognized chars (the first plate in sorted by string length descending order) is the actual plate
           	licPlate = listOfPossiblePlates[0]
 
-	        cv2.imshow("imgPlate", licPlate.imgPlate)           # show crop of plate and threshold of plate
+	        #cv2.imshow("imgPlate", licPlate.imgPlate)           # show crop of plate and threshold of plate
 	        #cv2.imshow("imgThresh", licPlate.imgThresh)
        	        if len(licPlate.strChars) == 0:                     # if no chars were found in the plate
         	    print "\nno characters were detected\n\n"       # show message
@@ -70,7 +70,7 @@ def main():
 			b = setOfNumbers[random.randint(0,len(setOfNumbers))]
 			print "ID = "+str(b)
    			setOfNumbers.remove(b)
-			++uid;
+			uid+=1;
 			url="http://localhost:3000/data?data1="+str(uid)+"&data2="+licPlate.strChars+"&data3=2&data4="+str(b)
                 	webbrowser.open(url,new=new)
 			oldlicPlate=licPlate.strChars
