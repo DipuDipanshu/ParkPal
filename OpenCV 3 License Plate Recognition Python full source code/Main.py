@@ -30,6 +30,7 @@ def main():
         return                                                          # and exit program
     # end if
     setOfNumbers = range(1,25)
+    floors = range(0,2)
     oldlicPlate="abcd"
     uid=0
     while 1 :
@@ -68,10 +69,11 @@ def main():
        	        	drawRedRectangleAroundPlate(imgOriginalScene, licPlate)             # draw red rectangle around plate
 	 	        print "\nlicense plate read from image = " + licPlate.strChars + "\n"       # write license plate text to std out
 			b = setOfNumbers[random.randint(0,len(setOfNumbers))]
-			print "ID = "+str(b)
+			print "ID = "+str(uid+1)
    			setOfNumbers.remove(b)
 			uid+=1;
-			url="http://localhost:3000/data?data1="+str(uid)+"&data2="+licPlate.strChars+"&data3=2&data4="+str(b)
+			c = floors[random.randint(0,len(floors))]
+			url="http://localhost:3000/data?data1="+str(uid)+"&data2="+licPlate.strChars+"&data3="+str(c)+"&data4="+str(b)
                 	webbrowser.open(url,new=new)
 			oldlicPlate=licPlate.strChars
 			print "\n----------------------------------------"
